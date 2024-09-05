@@ -87,18 +87,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return null;
                         },
                       ),
-                      TextFormField(
-                        controller: _noHpController,
-                        decoration: const InputDecoration(
-                            labelText: 'No. HP',
-                            icon: Icon(Icons.phone_outlined)),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          return null;
-                        },
-                      ),
+                      // TextFormField(
+                      //   controller: _noHpController,
+                      //   decoration: const InputDecoration(
+                      //       labelText: 'No. HP',
+                      //       icon: Icon(Icons.phone_outlined)),
+                      //   validator: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return 'Please enter your phone number';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       TextFormField(
                         controller: _passwordController,
                         decoration: const InputDecoration(

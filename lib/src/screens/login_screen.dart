@@ -79,45 +79,45 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    height: 24,
-                                    width: 40,
-                                    child: Transform.scale(
-                                      scale: 0.6,
-                                      child: Switch(
-                                        value: _rememberMe,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _rememberMe = value;
-                                          });
-                                        },
-                                        activeTrackColor: Colors.blue,
-                                        inactiveThumbColor: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  const Text('Remember Me',
-                                      style: TextStyle(fontSize: 12)),
-                                ],
-                              ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Row(
+                          //       children: [
+                          //         SizedBox(
+                          //           height: 24,
+                          //           width: 40,
+                          //           child: Transform.scale(
+                          //             scale: 0.6,
+                          //             child: Switch(
+                          //               value: _rememberMe,
+                          //               onChanged: (value) {
+                          //                 setState(() {
+                          //                   _rememberMe = value;
+                          //                 });
+                          //               },
+                          //               activeTrackColor: Colors.blue,
+                          //               inactiveThumbColor: Colors.white,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         const Text('Remember Me',
+                          //             style: TextStyle(fontSize: 12)),
+                          //       ],
+                          //     ),
 
-                              // Add a "Forgot Password" button
-                              // TextButton(
-                              //   onPressed: () {
-                              //     // Navigate to the "Forgot Password" screen
-                              //     Navigator.of(context)
-                              //         .pushNamed('/forgot-password');
-                              //   },
-                              //   child: const Text('Forgot Password?',
-                              //       style: TextStyle(fontSize: 12)),
-                              // ),
-                            ],
-                          ),
+                          //     // Add a "Forgot Password" button
+                          //     // TextButton(
+                          //     //   onPressed: () {
+                          //     //     // Navigate to the "Forgot Password" screen
+                          //     //     Navigator.of(context)
+                          //     //         .pushNamed('/forgot-password');
+                          //     //   },
+                          //     //   child: const Text('Forgot Password?',
+                          //     //       style: TextStyle(fontSize: 12)),
+                          //     // ),
+                          //   ],
+                          // ),
                           const SizedBox(height: 20),
                           authProvider.isLoading
                               ? const CircularProgressIndicator()
