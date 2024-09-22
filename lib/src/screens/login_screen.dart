@@ -49,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           Container(
                             alignment: Alignment.centerLeft,
-                            child: Text('Halo, Selamat datang di $appName!',
+                            child: Text(
+                                'Halo, Selamat datang disiap menjadi silahkan masukkan username dan password',
                                 style: Theme.of(context).textTheme.titleSmall),
                           ),
                           const SizedBox(height: 20),
