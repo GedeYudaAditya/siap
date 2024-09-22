@@ -33,6 +33,7 @@ class _LaporanScreenState extends State<LaporanScreen> {
   String? noTelp;
 
   TextEditingController keteranganController = TextEditingController();
+  TextEditingController nisnController = TextEditingController();
 
   bool dataIsReady = false;
 
@@ -77,8 +78,11 @@ class _LaporanScreenState extends State<LaporanScreen> {
 
   Future<void> _createLaporan() async {
     final body = await apiService.postData(
-      'create_perundungan_by_siswa',
+      'create_perundungan',
       {
+        'nisn': role != RoleUtils.getRoleIndex(RoleUtils.teacher)
+            ? ''
+            : nisnController.text,
         'keterangan': keteranganController.text,
       },
     );
@@ -397,7 +401,7 @@ class _LaporanScreenState extends State<LaporanScreen> {
 
                                                                             // Delete laporan
                                                                             await apiService.deleteData(
-                                                                                'delete_perundungan_by_siswa', {
+                                                                                'delete_perundungan', {
                                                                               'id_laporan': dataLaporan[index].id,
                                                                             }).then(
                                                                                 (value) {
@@ -592,7 +596,7 @@ class _LaporanScreenState extends State<LaporanScreen> {
 
                                                                         // Delete laporan
                                                                         await apiService.deleteData(
-                                                                            'delete_perundungan_by_siswa', {
+                                                                            'delete_perundungan', {
                                                                           'id_laporan':
                                                                               dataLaporan[index].id,
                                                                         }).then(
@@ -665,9 +669,12 @@ class _LaporanScreenState extends State<LaporanScreen> {
                 // Add button here
                 Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: role == RoleUtils.getRoleIndex(RoleUtils.student)
+                  child: role == RoleUtils.getRoleIndex(RoleUtils.student) ||
+                          role == RoleUtils.getRoleIndex(RoleUtils.teacher)
                       ? Showcase(
-                          key: _two,
+                          key: role != RoleUtils.getRoleIndex(RoleUtils.teacher)
+                              ? _two
+                              : _there,
                           description:
                               'Klik Tombol Berikut Untuk Menambahkan Laporan',
                           child: ElevatedButton(
@@ -681,6 +688,30 @@ class _LaporanScreenState extends State<LaporanScreen> {
                                     content: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
+                                        role !=
+                                                RoleUtils.getRoleIndex(
+                                                    RoleUtils.teacher)
+                                            ? SizedBox(
+                                                height: 0,
+                                              )
+                                            : TextField(
+                                                controller: nisnController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  labelText: 'NISN',
+                                                  hintText:
+                                                      'Pastikan NISN sudah terdaftar!',
+                                                  border: OutlineInputBorder(),
+                                                  alignLabelWithHint: true,
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
                                         TextField(
                                           controller: keteranganController,
                                           decoration: const InputDecoration(
@@ -732,6 +763,7 @@ class _LaporanScreenState extends State<LaporanScreen> {
                                                   Navigator.of(context).pop();
                                                   Navigator.of(context).pop();
                                                 }).onError((error, stackTrace) {
+                                                  print(error);
                                                   Navigator.of(context).pop();
                                                   // Show error message pop up
                                                   showDialog(
@@ -741,7 +773,7 @@ class _LaporanScreenState extends State<LaporanScreen> {
                                                         title:
                                                             const Text('Error'),
                                                         content: Text(
-                                                            'Gagal menambahkan laporan: $error'),
+                                                            '${error.toString()}'),
                                                         actions: [
                                                           ElevatedButton(
                                                             onPressed: () {

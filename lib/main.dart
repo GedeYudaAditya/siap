@@ -5,12 +5,16 @@ import 'package:spec_siandung/src/providers/auth_provider.dart';
 import 'package:spec_siandung/src/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:spec_siandung/src/screens/detail_laporan_screen.dart';
+import 'package:spec_siandung/src/screens/detail_siswa_screen.dart';
+import 'package:spec_siandung/src/screens/edit_siswa_screen.dart';
 import 'package:spec_siandung/src/screens/laporan_screen.dart';
 import 'package:spec_siandung/src/screens/log_screen.dart';
 import 'package:spec_siandung/src/screens/login_screen.dart';
 import 'package:spec_siandung/src/screens/pengaturan_screen.dart';
 import 'package:spec_siandung/src/screens/register_screen.dart';
+import 'package:spec_siandung/src/screens/siswa_screen.dart';
 import 'package:spec_siandung/src/screens/splash_screen.dart';
+import 'package:spec_siandung/src/screens/tambah_siswa_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,7 +50,11 @@ class MyApp extends StatelessWidget {
                 '/home': (context) => const LaporanScreen(),
                 '/detail-laporan': (context) => const DetailLaporanScreen(),
                 '/log': (context) => const LogScreen(),
+                '/siswa': (context) => const SiswaScreen(),
                 '/pengaturan': (context) => const PengaturanScreen(),
+                '/tambah-siswa': (context) => const TambahSiswaScreen(),
+                '/edit-siswa': (context) => const EditSiswaScreen(),
+                '/detail-siswa': (context) => const DetailSiswaScreen(),
               },
             ),
           );

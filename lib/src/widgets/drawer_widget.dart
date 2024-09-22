@@ -64,6 +64,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               Navigator.of(context).pushReplacementNamed('/pengaturan');
             },
           ),
+          role == RoleUtils.getRoleIndex(RoleUtils.teacher)
+              ? ListTile(
+                  title: const Text('Siswa'),
+                  leading: const Icon(Icons.group),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/siswa');
+                  },
+                )
+              : SizedBox(),
         ],
       ),
     );

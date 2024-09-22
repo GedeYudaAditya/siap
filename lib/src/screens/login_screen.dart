@@ -141,7 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
-                                                content: Text('Login failed')),
+                                                content: Text(
+                                                    'Username atau password salah. Coba lagi dengan username dan password yang benar.')),
                                           );
                                         }
                                       }
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
             left: 0,
             right: 0,
             bottom: MediaQuery.of(context).size.height * 0.8,
-            child: Image.asset('lib/assets/icon.png',
+            child: Image.asset('lib/assets/logo.png',
                 width: 80, height: 80, fit: BoxFit.contain),
           ),
         ]),

@@ -33,7 +33,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
 
     // call api service to update laporan
     try {
-      final response = await apiService.putData('update_perundungan_by_siswa', {
+      final response = await apiService.putData('update_perundungan', {
         'id_laporan': id,
         'keterangan': keterangan,
       });
@@ -135,7 +135,9 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                           ),
                         )
                       : SizedBox(),
-                  role == RoleUtils.getRoleIndex(RoleUtils.student) &&
+                  (role == RoleUtils.getRoleIndex(RoleUtils.student) ||
+                              role ==
+                                  RoleUtils.getRoleIndex(RoleUtils.teacher)) &&
                           !(args.status == 'Selesai' ||
                               args.status == 'Selesai dari Siswa')
                       ? Expanded(

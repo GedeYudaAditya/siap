@@ -56,8 +56,9 @@ class ApiService {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        print(response.body);
-        throw Exception('Failed to post data');
+        var error = jsonDecode(response.body);
+        print(error);
+        throw error['message'];
       }
     } catch (e) {
       print('Error API: $e');
@@ -86,8 +87,9 @@ class ApiService {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        print(data);
-        throw Exception('Failed to put data');
+        var error = jsonDecode(response.body);
+        print(error);
+        throw error['message'];
       }
     } catch (e) {
       print('Error API: $e');
@@ -137,7 +139,9 @@ class ApiService {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
-      throw Exception('Failed to login ${response.body}');
+      var error = jsonDecode(response.body);
+      print(error);
+      throw error['message'];
     }
   }
 

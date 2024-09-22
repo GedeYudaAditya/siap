@@ -829,7 +829,7 @@ class _LogScreenState extends State<LogScreen> {
                                                               title: const Text(
                                                                   'Error'),
                                                               content: Text(
-                                                                  'Gagal menambahkan log: $error'),
+                                                                  '${error.toString()}'),
                                                               actions: [
                                                                 ElevatedButton(
                                                                   onPressed:
