@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:spec_siandung/src/services/api_service.dart';
 import 'package:spec_siandung/src/models/kelas.dart';
 import 'package:spec_siandung/src/models/siswa.dart';
@@ -145,7 +146,8 @@ class _EditSiswaScreenState extends State<EditSiswaScreen> {
                   if (pickedDate != null) {
                     // Format dan set tanggal ke dalam controller
                     String formattedDate =
-                        "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                        DateFormat('yyyy-MM-dd', 'id_ID').format(pickedDate);
+                    // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
                     setState(() {
                       _tanggalLahirController.text =
                           formattedDate; // Set hasil ke field
