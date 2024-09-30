@@ -136,7 +136,7 @@ class _TambahSiswaScreenState extends State<TambahSiswaScreen> {
                   if (pickedDate != null) {
                     // Format dan set tanggal ke dalam controller
                     String formattedDate =
-                        DateFormat('yyyy-MM-dd', 'id_ID').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
                     setState(() {
                       _tanggalLahirController.text =
