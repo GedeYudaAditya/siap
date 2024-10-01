@@ -20,6 +20,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
   String? id;
   String? nama;
   int? role;
+  String? keterangan;
 
   @override
   void initState() {
@@ -64,10 +65,29 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
     _keteranganController.text = value;
   }
 
+  Future<void> _getLaporan(id) async {
+    // call api service to update laporan
+    try {
+      final response =
+          await apiService.fetchData('perundungan_by_id?id_laporan=$id');
+
+      Laporan data = Laporan.fromJson(response['data']);
+
+      keterangan = data.keterangan;
+
+      setState(() {});
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // get arguments from previous screen
     final args = ModalRoute.of(context)!.settings.arguments as Laporan;
+
+    // Prepopulate form fields with existing laporan data
+    _getLaporan(args.id!);
 
     // set the text controller value
     _setTextControllerValue(args.keterangan ?? '');
@@ -107,7 +127,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                     child: SingleChildScrollView(
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(args.keterangan ?? '',
+                        child: Text(keterangan ?? '',
                             style: TextStyle(fontSize: 16, height: 1.5),
                             textAlign: TextAlign.justify),
                       ),
@@ -215,7 +235,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
 
                                                 if (result) {
                                                   // change the data in the previous screen
-                                                  args.keterangan =
+                                                  keterangan =
                                                       _keteranganController
                                                           .text;
 
