@@ -205,7 +205,7 @@ class _SiswaScreenState extends State<SiswaScreen> {
                         Navigator.of(context).pushNamed('/tambah-siswa');
                       },
                     ),
-                  )
+                  ),
                 ],
               )
             : const Center(

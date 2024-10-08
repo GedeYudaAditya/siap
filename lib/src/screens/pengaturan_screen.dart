@@ -5,6 +5,7 @@ import 'package:spec_siandung/src/services/api_service.dart';
 import 'package:spec_siandung/src/utils/role_utils.dart';
 import 'package:spec_siandung/src/widgets/app_bar_widget.dart';
 import 'package:spec_siandung/src/widgets/drawer_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PengaturanScreen extends StatefulWidget {
   const PengaturanScreen({super.key});
@@ -61,6 +62,13 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   void initState() {
     super.initState();
     _getSharedPrefs();
+  }
+
+  _launchURL() async {
+    final Uri url = Uri.parse('https://wa.me/+6282220202358');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override
@@ -300,7 +308,30 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                               );
                             }
                           }),
-                      SizedBox(height: 50),
+                      SizedBox(height: 20),
+                      // Link Reset Hapus Akun
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 8, bottom: 8),
+                          child: Column(children: [
+                            Text(
+                                'Jika anda ingin menghapus akun anda, silahkan '),
+                            TextButton(
+                              style: ButtonStyle(
+                                  padding: WidgetStateProperty.all(
+                                const EdgeInsets.all(0),
+                              )),
+                              child: Text('Hubungi admin',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 16,
+                                      decoration: TextDecoration.underline)),
+                              onPressed: () async {
+                                _launchURL();
+                              },
+                            ),
+                          ])),
+                      SizedBox(height: 20),
                     ],
                   );
                 }),
