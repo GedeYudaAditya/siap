@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spec_siandung/src/providers/auth_provider.dart';
 import 'package:spec_siandung/src/services/api_service.dart';
 import 'package:spec_siandung/src/utils/role_utils.dart';
 import 'package:spec_siandung/src/widgets/app_bar_widget.dart';
@@ -24,6 +26,8 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   final TextEditingController _passwordNewController = TextEditingController();
   final TextEditingController _passwordOldController = TextEditingController();
   final TextEditingController _passwordConfController = TextEditingController();
+  final TextEditingController _passwordHapusController =
+      TextEditingController();
 
   final apiService = ApiService();
 
@@ -35,6 +39,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   String? username;
   String? noTelp;
   String? image;
+  String? password;
 
   // get shared preferences
   Future<void> _getSharedPrefs() async {
@@ -46,6 +51,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     email = prefs.getString('email');
     username = prefs.getString('username');
     noTelp = prefs.getString('noTelp');
+    password = prefs.getString('password');
 
     image = prefs.getString('foto');
     setState(() {});
@@ -73,6 +79,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     _setFields();
     return Scaffold(
       key: _scaffoldKey,
@@ -310,28 +317,158 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                           }),
                       SizedBox(height: 20),
                       // Link Reset Hapus Akun
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8, right: 8, bottom: 8),
-                          child: Column(children: [
-                            Text(
-                                'Jika anda ingin menghapus akun anda, silahkan '),
-                            TextButton(
-                              style: ButtonStyle(
-                                  padding: WidgetStateProperty.all(
-                                const EdgeInsets.all(0),
-                              )),
-                              child: Text('Hubungi admin',
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 16,
-                                      decoration: TextDecoration.underline)),
-                              onPressed: () async {
-                                _launchURL();
+                      (RoleUtils.getRoleIndex(RoleUtils.student) == role)
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                              ),
+                              onPressed: () {
+                                // Dialog hapus akun, masukkan password untuk konfirmasi
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Hapus Akun'),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                              'Apakah Anda yakin ingin menghapus akun?'),
+                                          const SizedBox(height: 16),
+                                          TextFormField(
+                                            controller:
+                                                _passwordHapusController,
+                                            decoration: const InputDecoration(
+                                              icon: Icon(Icons.lock),
+                                              labelText: 'Password',
+                                              hintText: 'Password',
+                                              hintStyle: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Masukkan password';
+                                              }
+                                              if (value != password) {
+                                                return 'Password salah';
+                                              }
+                                              return null;
+                                            },
+                                            obscureText: true,
+                                          ),
+                                        ],
+                                      ),
+                                      actions: [
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.grey,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Batal'),
+                                        ),
+                                        SizedBox(height: 10),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red,
+                                          ),
+                                          onPressed: () async {
+                                            // Then, update the user data in the API.
+                                            try {
+                                              if (_passwordHapusController
+                                                      .text !=
+                                                  password) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: const Text(
+                                                          'Konfirmasi Gagal'),
+                                                      content: Text(
+                                                          'Password yang Anda masukkan tidak sesuai'),
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child:
+                                                              const Text('OK'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+
+                                                return;
+                                              }
+
+                                              await apiService.deleteData(
+                                                  'delete_akun', {});
+
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        const Text('Berhasil'),
+                                                    content: Text(
+                                                        'Akun Telah Terhapus'),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+
+                                              authProvider.logout();
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      '/login');
+                                            } catch (e) {
+                                              print(e);
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: const Text('Error'),
+                                                    content: Text(
+                                                        'Gagal Menghapus Akun'),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: const Text('Hapus'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
-                            ),
-                          ])),
-                      SizedBox(height: 20),
+                              child: const Text('Hapus Akun'),
+                            )
+                          : Container(),
                     ],
                   );
                 }),

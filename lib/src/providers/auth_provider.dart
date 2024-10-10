@@ -48,6 +48,7 @@ class AuthProvider with ChangeNotifier {
       await prefs.setString('token', token);
       await prefs.setString('id', userData['id']);
       await prefs.setString('nama', userData['nama']);
+      await prefs.setString('password', password);
 
       final userInfo = await _apiService.fetchData('profile');
 
