@@ -85,97 +85,97 @@ class _TambahSiswaScreenState extends State<TambahSiswaScreen> {
                     return null;
                   },
                 ),
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: "Kelas"),
-                  value: _kelas,
-                  onChanged: _isLoadingKelas
-                      ? null // Disable saat data masih loading
-                      : (String? newValue) {
-                          setState(() {
-                            _kelas = newValue;
-                          });
-                        },
-                  items: _kelasList
-                      .map((kelas) => DropdownMenuItem(
-                            value: kelas.id,
-                            child: Text(kelas.kelas ?? ''),
-                          ))
-                      .toList(),
-                  disabledHint:
-                      Text("Memuat data kelas..."), // Pesan saat disabled
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Kelas wajib dipilih';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _tanggalLahirController,
-                  readOnly:
-                      true, // Agar hanya dapat menginput melalui date picker
-                  decoration: InputDecoration(
-                    labelText: "Tanggal Lahir",
-                    suffixIcon: Icon(Icons.calendar_today), // Ikon kalender
-                  ),
-                  onTap: () async {
-                    // Tampilkan date picker ketika field ditekan
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                      builder: (BuildContext context, Widget? child) {
-                        return Theme(
-                          data: ThemeData.light().copyWith(
-                            primaryColor:
-                                Colors.teal, // Header background color
-                            hintColor:
-                                Colors.teal, // Circle color for selected date
-                            colorScheme:
-                                ColorScheme.light(primary: Colors.teal),
-                            buttonTheme: ButtonThemeData(
-                              textTheme:
-                                  ButtonTextTheme.primary, // Button text color
-                            ),
-                            textTheme: TextTheme(
-                              headlineMedium: TextStyle(
-                                  color: Colors
-                                      .teal), // Style for the selected date
-                            ),
-                          ),
-                          child: child!,
-                        );
-                      },
-                    );
-                    if (pickedDate != null) {
-                      // Format dan set tanggal ke dalam controller
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-                      setState(() {
-                        _tanggalLahirController.text =
-                            formattedDate; // Set hasil ke field
-                      });
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Tanggal lahir wajib diisi';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _umurController,
-                  decoration: InputDecoration(labelText: "Umur"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Umur wajib diisi';
-                    }
-                    return null;
-                  },
-                ),
+                // DropdownButtonFormField<String>(
+                //   decoration: InputDecoration(labelText: "Kelas"),
+                //   value: _kelas,
+                //   onChanged: _isLoadingKelas
+                //       ? null // Disable saat data masih loading
+                //       : (String? newValue) {
+                //           setState(() {
+                //             _kelas = newValue;
+                //           });
+                //         },
+                //   items: _kelasList
+                //       .map((kelas) => DropdownMenuItem(
+                //             value: kelas.id,
+                //             child: Text(kelas.kelas ?? ''),
+                //           ))
+                //       .toList(),
+                //   disabledHint:
+                //       Text("Memuat data kelas..."), // Pesan saat disabled
+                //   validator: (value) {
+                //     if (value == null) {
+                //       return 'Kelas wajib dipilih';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                // TextFormField(
+                //   controller: _tanggalLahirController,
+                //   readOnly:
+                //       true, // Agar hanya dapat menginput melalui date picker
+                //   decoration: InputDecoration(
+                //     labelText: "Tanggal Lahir",
+                //     suffixIcon: Icon(Icons.calendar_today), // Ikon kalender
+                //   ),
+                //   onTap: () async {
+                //     // Tampilkan date picker ketika field ditekan
+                //     DateTime? pickedDate = await showDatePicker(
+                //       context: context,
+                //       initialDate: DateTime.now(),
+                //       firstDate: DateTime(1900),
+                //       lastDate: DateTime.now(),
+                //       builder: (BuildContext context, Widget? child) {
+                //         return Theme(
+                //           data: ThemeData.light().copyWith(
+                //             primaryColor:
+                //                 Colors.teal, // Header background color
+                //             hintColor:
+                //                 Colors.teal, // Circle color for selected date
+                //             colorScheme:
+                //                 ColorScheme.light(primary: Colors.teal),
+                //             buttonTheme: ButtonThemeData(
+                //               textTheme:
+                //                   ButtonTextTheme.primary, // Button text color
+                //             ),
+                //             textTheme: TextTheme(
+                //               headlineMedium: TextStyle(
+                //                   color: Colors
+                //                       .teal), // Style for the selected date
+                //             ),
+                //           ),
+                //           child: child!,
+                //         );
+                //       },
+                //     );
+                //     if (pickedDate != null) {
+                //       // Format dan set tanggal ke dalam controller
+                //       String formattedDate =
+                //           DateFormat('yyyy-MM-dd').format(pickedDate);
+                //       // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                //       setState(() {
+                //         _tanggalLahirController.text =
+                //             formattedDate; // Set hasil ke field
+                //       });
+                //     }
+                //   },
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Tanggal lahir wajib diisi';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                // TextFormField(
+                //   controller: _umurController,
+                //   decoration: InputDecoration(labelText: "Umur"),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Umur wajib diisi';
+                //     }
+                //     return null;
+                //   },
+                // ),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(labelText: "Jenis Kelamin"),
                   value: _jenisKelamin,
@@ -227,9 +227,9 @@ class _TambahSiswaScreenState extends State<TambahSiswaScreen> {
                           {
                             'nisn': _nisnController.text,
                             'nama': _namaController.text,
-                            'kelas': _kelas,
-                            'tanggal_lahir': _tanggalLahirController.text,
-                            'umur': _umurController.text,
+                            // 'kelas': _kelas,
+                            // 'tanggal_lahir': _tanggalLahirController.text,
+                            // 'umur': _umurController.text,
                             'jenis_kelamin': _jenisKelamin,
                             'alamat': _alamatController.text,
                             'no_telepon': _noTeleponController.text,
@@ -237,7 +237,7 @@ class _TambahSiswaScreenState extends State<TambahSiswaScreen> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Data Siswa Ditambahkan')));
-          
+
                         Navigator.of(context).pushReplacementNamed('/siswa');
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(

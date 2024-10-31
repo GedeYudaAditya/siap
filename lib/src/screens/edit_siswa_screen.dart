@@ -100,77 +100,77 @@ class _EditSiswaScreenState extends State<EditSiswaScreen> {
                   return null;
                 },
               ),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: "Kelas"),
-                value: _kelas,
-                onChanged: _isLoadingKelas
-                    ? null // Disable saat data masih loading
-                    : (String? newValue) {
-                        setState(() {
-                          _kelas = newValue;
-                        });
-                      },
-                items: _kelasList
-                    .map((kelas) => DropdownMenuItem(
-                          value: kelas.id,
-                          child: Text(kelas.kelas ?? ''),
-                        ))
-                    .toList(),
-                disabledHint:
-                    Text("Memuat data kelas..."), // Pesan saat disabled
-                validator: (value) {
-                  if (value == null) {
-                    return 'Kelas wajib dipilih';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _tanggalLahirController,
-                readOnly:
-                    true, // Agar hanya dapat menginput melalui date picker
-                decoration: InputDecoration(
-                  labelText: "Tanggal Lahir",
-                  suffixIcon: Icon(Icons.calendar_today), // Ikon kalender
-                ),
-                onTap: () async {
-                  // Tampilkan date picker ketika field ditekan
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate:
-                        DateTime.now(), // Tanggal awal yang ditampilkan
-                    firstDate: DateTime(1900), // Batas tanggal paling awal
-                    lastDate: DateTime.now(), // Batas tanggal paling akhir
-                  );
+              // DropdownButtonFormField<String>(
+              //   decoration: InputDecoration(labelText: "Kelas"),
+              //   value: _kelas,
+              //   onChanged: _isLoadingKelas
+              //       ? null // Disable saat data masih loading
+              //       : (String? newValue) {
+              //           setState(() {
+              //             _kelas = newValue;
+              //           });
+              //         },
+              //   items: _kelasList
+              //       .map((kelas) => DropdownMenuItem(
+              //             value: kelas.id,
+              //             child: Text(kelas.kelas ?? ''),
+              //           ))
+              //       .toList(),
+              //   disabledHint:
+              //       Text("Memuat data kelas..."), // Pesan saat disabled
+              //   validator: (value) {
+              //     if (value == null) {
+              //       return 'Kelas wajib dipilih';
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // TextFormField(
+              //   controller: _tanggalLahirController,
+              //   readOnly:
+              //       true, // Agar hanya dapat menginput melalui date picker
+              //   decoration: InputDecoration(
+              //     labelText: "Tanggal Lahir",
+              //     suffixIcon: Icon(Icons.calendar_today), // Ikon kalender
+              //   ),
+              //   onTap: () async {
+              //     // Tampilkan date picker ketika field ditekan
+              //     DateTime? pickedDate = await showDatePicker(
+              //       context: context,
+              //       initialDate:
+              //           DateTime.now(), // Tanggal awal yang ditampilkan
+              //       firstDate: DateTime(1900), // Batas tanggal paling awal
+              //       lastDate: DateTime.now(), // Batas tanggal paling akhir
+              //     );
 
-                  if (pickedDate != null) {
-                    // Format dan set tanggal ke dalam controller
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd', 'id_ID').format(pickedDate);
-                    // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-                    setState(() {
-                      _tanggalLahirController.text =
-                          formattedDate; // Set hasil ke field
-                    });
-                  }
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Tanggal lahir wajib diisi';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _umurController,
-                decoration: InputDecoration(labelText: "Umur"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Umur wajib diisi';
-                  }
-                  return null;
-                },
-              ),
+              //     if (pickedDate != null) {
+              //       // Format dan set tanggal ke dalam controller
+              //       String formattedDate =
+              //           DateFormat('yyyy-MM-dd', 'id_ID').format(pickedDate);
+              //       // "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+              //       setState(() {
+              //         _tanggalLahirController.text =
+              //             formattedDate; // Set hasil ke field
+              //       });
+              //     }
+              //   },
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Tanggal lahir wajib diisi';
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // TextFormField(
+              //   controller: _umurController,
+              //   decoration: InputDecoration(labelText: "Umur"),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Umur wajib diisi';
+              //     }
+              //     return null;
+              //   },
+              // ),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(labelText: "Jenis Kelamin"),
                 value: _jenisKelamin,
@@ -223,9 +223,9 @@ class _EditSiswaScreenState extends State<EditSiswaScreen> {
                           'id_siswa': args.idSiswa,
                           'nisn': _nisnController.text,
                           'nama': _namaController.text,
-                          'kelas': _kelas,
-                          'tanggal_lahir': _tanggalLahirController.text,
-                          'umur': _umurController.text,
+                          // 'kelas': _kelas,
+                          // 'tanggal_lahir': _tanggalLahirController.text,
+                          // 'umur': _umurController.text,
                           'jenis_kelamin': _jenisKelamin,
                           'alamat': _alamatController.text,
                           'no_telepon': _noTeleponController.text,
