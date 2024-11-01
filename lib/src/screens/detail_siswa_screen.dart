@@ -55,12 +55,12 @@ class _DetailSiswaScreenState extends State<DetailSiswaScreen> {
                       const SizedBox(height: 10),
 
                       // Display Tanggal Lahir
-                      buildDetailRow('Tanggal Lahir', args.tanggalLahir),
-                      const SizedBox(height: 10),
+                      // buildDetailRow('Tanggal Lahir', args.tanggalLahir),
+                      // const SizedBox(height: 10),
 
                       // Display Umur
-                      buildDetailRow('Umur', '${args.umur} tahun'),
-                      const SizedBox(height: 10),
+                      // buildDetailRow('Umur', '${args.umur} tahun'),
+                      // const SizedBox(height: 10),
 
                       // Display Jenis Kelamin
                       buildDetailRow('Jenis Kelamin', args.jenisKelamin),
@@ -79,8 +79,8 @@ class _DetailSiswaScreenState extends State<DetailSiswaScreen> {
                       const SizedBox(height: 10),
 
                       // Display Kelas
-                      buildDetailRow('Kelas', args.kelas),
-                      const SizedBox(height: 10),
+                      // buildDetailRow('Kelas', args.kelas),
+                      // const SizedBox(height: 10),
 
                       // Display Total Rundungan
                       buildDetailRow('Total Rundungan', args.totalRundungan),
