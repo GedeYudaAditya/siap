@@ -65,6 +65,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     _emailController.text = email ?? '';
     _noTelpController.text = noTelp ?? '';
     _namaController.text = nama ?? '';
+    _namaSekolah.text = namaSekolah ?? '';
   }
 
   @override
@@ -165,7 +166,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                       ),
                       TextFormField(
                         readOnly: true,
-                        enabled: false,
+                        // enabled: false,
                         controller: _namaSekolah,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.school),
