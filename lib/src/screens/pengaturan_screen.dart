@@ -23,6 +23,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _noTelpController = TextEditingController();
+  final TextEditingController _namaSekolah = TextEditingController();
   final TextEditingController _passwordNewController = TextEditingController();
   final TextEditingController _passwordOldController = TextEditingController();
   final TextEditingController _passwordConfController = TextEditingController();
@@ -40,6 +41,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
   String? noTelp;
   String? image;
   String? password;
+  String? namaSekolah;
 
   // get shared preferences
   Future<void> _getSharedPrefs() async {
@@ -52,6 +54,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     username = prefs.getString('username');
     noTelp = prefs.getString('noTelp');
     password = prefs.getString('password');
+    namaSekolah = prefs.getString('namaSekolah');
 
     image = prefs.getString('foto');
     setState(() {});
@@ -154,6 +157,20 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                           icon: Icon(Icons.phone),
                           labelText: 'No. Telp',
                           hintText: 'No. Telp',
+                          hintStyle: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        readOnly: true,
+                        enabled: false,
+                        controller: _namaSekolah,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.school),
+                          labelText: 'Nama Sekolah',
+                          hintText: 'Nama Sekolah',
                           hintStyle: TextStyle(
                             fontSize: 12,
                             color: Colors.grey,
